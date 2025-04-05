@@ -1,0 +1,40 @@
+name: Update JSON
+
+on: [push]
+# on:
+#   schedule:
+#     - cron: "0 21 * * *"  # KST 매일 06:00
+
+jobs:
+  update-json:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.11.8]
+    env:
+      GH_TOKEN: ${{ secrets.MY_SECRET_KEY }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install python package
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run main.py
+        run: |
+          python main.py
+
+      - name: Commit & Push
+        run: |
+          git config user.name "Dockerel"
+          git config user.email "dgh0001@naver.com"
+          git remote set-url origin https://github.com/Dockerel/CurrencyAPI.git
+          git add -A
+          git commit -m "chore: json updated" || echo "No changes to commit"
+          git push https://$GH_TOKEN@github.com/Dockerel/CurrencyAPI.git
