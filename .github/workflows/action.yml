@@ -3,7 +3,7 @@ name: Update JSON
 # on: [push]
 on:
   schedule:
-    - cron: "0 21 * * *"  # KST 매일 06:00
+    - cron: "0 21 * * *" # KST 매일 06:00
 
 jobs:
   update-json:
@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         python-version: [3.11.8]
-  
+
     steps:
       - uses: actions/checkout@v4
         env:
@@ -34,7 +34,7 @@ jobs:
         run: |
           git config user.name "Dockerel"
           git config user.email "dgh0001@naver.com"
-          git remote set-url origin https://github.com/Dockerel/CurrencyAPI.git
+          git remote set-url origin https://github.com/Dockerel/ExchangeRateAPI.git
           git add -A
           git commit -m "chore: json updated" || echo "No changes to commit"
-          git push https://$GITHUB_TOKEN@github.com/Dockerel/CurrencyAPI.git
+          git push https://$GITHUB_TOKEN@github.com/Dockerel/ExchangeRateAPI.git

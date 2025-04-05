@@ -7,7 +7,7 @@ with open("data/data.json", "r") as f:
 url = "https://m.search.naver.com/p/csearch/content/qapirender.nhn?key=calculator&pkid=141&q=%ED%99%98%EC%9C%A8&where=m&u1=keb&u6=standardUnit&u7=0&u3=USD&u4=KRW&u8=down&u2=1"
 
 response = requests.get(url)
-todayCurrency = (
+todayRate = (
     response.json().get("country")[1].get("value").replace(",", "")
 )
 
@@ -17,7 +17,7 @@ todayDate = str(current_time_kst).split()[0]
 
 new_data = {}
 new_data["date"] = todayDate
-new_data["currency"] = todayCurrency
+new_data["rate"] = todayRate
 
 json_data["data"].append(new_data)
 del json_data["data"][0]
