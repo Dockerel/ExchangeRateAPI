@@ -8,15 +8,19 @@ url = "https://m.search.naver.com/p/csearch/content/qapirender.nhn?key=calculato
 
 response = requests.get(url)
 todayCurrency = (
-    response.json().get("country")[1].get("subValue").split()[0].replace(",", "")
+    response.json().get("country")[1].get("value").replace(",", "")
 )
 
 kst = pytz.timezone("Asia/Seoul")
 current_time_kst = dt.datetime.now(kst)
 todayDate = str(current_time_kst).split()[0]
 
-json_data[todayDate] = todayCurrency
-del json_data[list(json_data.keys())[0]]
+new_data = {}
+new_data["date"] = todayDate
+new_data["currency"] = todayCurrency
+
+json_data["data"].append(new_data)
+del json_data["data"][0]
 
 with open("data/data.json", "w", encoding="utf-8") as f:
     json.dump(json_data, f, indent=2, ensure_ascii=False)
