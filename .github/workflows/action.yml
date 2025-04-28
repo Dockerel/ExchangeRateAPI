@@ -3,7 +3,7 @@ name: Update JSON
 # on: [push]
 on:
   schedule:
-    - cron: "0 21 * * *" # KST 매일 06:00
+    - cron: "0 14 * * *" # KST 매일 06:00
 
 jobs:
   update-json:
