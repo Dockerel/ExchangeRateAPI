@@ -1,9 +1,9 @@
 name: Update JSON
 
 # on: [push]
-on:
-  schedule:
-    - cron: "0 10 * * *" # KST 매일 02:00
+# on:
+#   schedule:
+#     - cron: "0 10 * * *" # KST 매일 02:00
 
 jobs:
   update-json:
@@ -38,6 +38,7 @@ jobs:
           git add -A
           git commit -m "chore: json updated" || echo "No changes to commit"
           git push https://$GITHUB_TOKEN@github.com/Dockerel/ExchangeRateAPI.git
+
 
 
 
